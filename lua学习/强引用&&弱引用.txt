@@ -1,0 +1,30 @@
+强引用：一般我们创建的table都是强引用的table，即key和value都是强引用，强引用可以防止它们指向的对象被回收。
+弱引用：不能防止回收
+弱引用table有三种形式：
+1.key值弱引用。设置方法为setmetatable(b, {__mode = "k"})
+2.value值弱引用。设置方法为setmetatable(b, {__mode = "v"})
+3.key和value值弱引用。设置方法为setmetatable(b, {__mode = "kv"})
+当一个key或者value被收集时，整个key以及对应的value都会从table中移除
+
+强引用例子：
+a = {name = "123"}
+b = {}
+b[1] = a
+a = nil
+collectgarbage()
+for k,v in pairs(b) do
+    print(k) --1
+    print(v) --table: 0054E430
+end
+
+弱引用例子：
+a = {name = "123"}
+b = {}
+setmetatable(b, {__mode = "v"}) --add
+b[1] = a
+a = nil
+collectgarbage()
+for k,v in pairs(b) do
+    print(k) --无
+    print(v) --无
+end
