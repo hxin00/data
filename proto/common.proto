@@ -1,0 +1,5 @@
+syntax = "proto3";
+message msg {
+    int32 id = 1;
+    string arg = 2; 
+ }
